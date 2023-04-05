@@ -1,13 +1,16 @@
 <template>
   <div>
-    <div class="">
+    <!-- Start tags -->
+    <div>
       <div class="mt-5 ml-[45px]" v-for="alphabet in alphabets" :key="alphabet.index">
         {{ alphabet }}
         <div v-for="(tag, index) in allTags" :key="index">
           <div v-if="alphabet == tag.name.substring(0, 1).toUpperCase()">
             <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-sm font-medium text-gray-540">
               {{ tag.name }}
+              <!--Start of edit tag -->
               <PencilIcon class="h-4 w-4 ml-[45px]" @click="editTag(tag)" />
+              <!--Delete button-->
               <button
                 type="button"
                 class="ml-0.5 inline-flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full text-gray-400 hover:bg-gray-200 hover:text-gray-500 focus:bg-gray-500 focus:text-white focus:outline-none"
@@ -22,6 +25,7 @@
         </div>
       </div>
     </div>
+    <!--End of tags-->
   </div>
 </template>
 
@@ -32,22 +36,21 @@
     allTags: Array<{}>; // All tags
     alphabets: Array<{}>; // Alphabets
   }
-  // Tags props default data
+  // Tags props
   const props = withDefaults(defineProps<TagProps>(), {
     allTags: () => [{}],
     alphabets: () => [{}],
   });
   const emit = defineEmits(["edit", "delete"]);
-
-  const editSelectedTag = ref([]);
-
+  const editSelectedTag = ref([]); //To edit selected tag
+  //Edit Tag
   const editTag = (tag: any) => {
     editSelectedTag.value.push(tag.uid);
   };
-
   const edit = (tag: any) => {
     emit("edit", tag);
   };
+  //Delete Tag
   const deleteTag = (tag: any, index: number) => {
     emit("deleteTags", tag, index);
   };

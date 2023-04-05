@@ -12,7 +12,7 @@
     entityId: string; // Entity id for the api call
     projectId: string; // Project id
   }
-  // Tags props default data
+  // Tags props
   const props = withDefaults(defineProps<TagProps>(), {
     url: "",
     entity: "",
@@ -24,10 +24,10 @@
     Authorization:
       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1IjoiYjJkMWQxN2MzM2VjNDdjMTg0ZWYxZWUwNmUwNDRkNjEiLCJkIjoiMTY4MDA3NiIsInIiOiJzYSIsInAiOiJmcmVlIiwiYSI6ImZpbmRlci5pbyIsImwiOiJ1czEiLCJleHAiOjE2ODMyNzMwMTZ9.1U9Y1jlFtYqeFF0Mnp7YD1fWvzG8OH_ZJpff9lkaSVo",
   };
+  //Get tags data
   const { pending, data: tags } = await useLazyFetch(`${props.url}/entity/${props.entity}?offset=0&limit=100&sort_column=id&sort_direction=desc`, { method: "GET", headers: authHeader });
   const allTags = tags.value;
-  console.log(tags, allTags);
-
+  //Add tag to database
   const add = async (name: string) => {
     await useLazyFetch(`${props.url}/`, {
       method: "POST",
@@ -41,6 +41,7 @@
     // Push new tag into existing tags
     allTags.push(name);
   };
+  //Edit tag
   const edit = async (tag: any) => {
     await useLazyFetch(`${props.url}/${tag.uid}?name=${tag.name}`, { method: "PUT", headers: authHeader });
     allTags.forEach((data: any) => {
@@ -49,6 +50,7 @@
       }
     });
   };
+  //Delete tag
   const deleteTags = async (tag: any, index: number) => {
     await useLazyFetch(`${props.url}/${tag.uid}`, { method: "DELETE", headers: authHeader });
     if (index !== -1) {

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--Start of create tag-->
     <p class="sm:ml-[25px] sm:mb-[-22px]">Add Tag</p>
     <PlusIcon class="h-5 w-5" @click="createTag = true" />
     <div v-if="createTag">
@@ -21,6 +22,7 @@
         </button>
       </form>
     </div>
+    <!--End of create tag-->
   </div>
 </template>
 <script setup lang="ts">
