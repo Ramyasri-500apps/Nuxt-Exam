@@ -30,13 +30,13 @@
         <div class="flex min-h-full items-center justify-center p-4 text-center">
           <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0 scale-95" enter-to="opacity-100 scale-100" leave="duration-200 ease-in" leave-from="opacity-100 scale-100" leave-to="opacity-0 scale-95">
             <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-              <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900"> {{ edit ? "Edit" : "Delete" }}-Project </DialogTitle>
+              <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900"> {{ edit ? "Edit" : "Delete" }} Student </DialogTitle>
 
               <div v-if="edit">
                 <StudentDetailsEdit :project="editProject" @edit="(openModal = false), (edit = false), emit('emitData', { note: $event, value: 'edit', index: editIndex })" @cancel="closeModal" />
               </div>
               <div v-if="deleteProject">
-                <p>do you want to delete?</p>
+                <p class="mt-3">Do you want to delete?</p>
                 <div class="mt-10 flex">
                   <button
                     type="submit"

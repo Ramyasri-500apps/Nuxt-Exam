@@ -1,7 +1,11 @@
 <template>
-  <div class="flex ml-3">
-    <div class="ml-10 flex justify-end">
-      <button type="button" class="rounded-full bg-indigo-600 p-4 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" @click="openModal">
+  <div class="ml-3 mt-2">
+    <h1 class="text-base font-semibold leading-6 text-gray-900">Students</h1>
+    <p class="mt-2 text-sm text-gray-700">A list of all the Builders in your account including their name, email.</p>
+  </div>
+  <div class="flex ml-3 justify-end">
+    <div class="ml-10 flex">
+      <button type="button" class="rounded-full bg-indigo-600 p-4 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2.5" @click="openModal">
         Add Student
       </button>
     </div>
@@ -21,8 +25,6 @@
         <div class="flex min-h-full items-center justify-center p-4 text-center">
           <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0 scale-95" enter-to="opacity-100 scale-100" leave="duration-200 ease-in" leave-from="opacity-100 scale-100" leave-to="opacity-0 scale-95">
             <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-              <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900"> </DialogTitle>
-
               <div>
                 <StudentDetailsAdd @add="add" @cancel="isOpen = false" />
               </div>
@@ -73,18 +75,5 @@
   // Edit and Delete events
   const emitData = (note: Object) => {
     note.value == "edit" ? edit(note) : deleteNote(note);
-  };
-
-  const searchQuery = ref();
-
-  const getSearchName = () => {
-    if (searchQuery.value) {
-      projects.value = projects.value.filter((item: any) => {
-        return item.name.toLowerCase().includes(searchQuery.value.toLowerCase());
-      });
-    } else {
-      // If search query is empty, show all projects
-      projects.value = JSON.parse(localStorage.getItem("projectDetails"));
-    }
   };
 </script>

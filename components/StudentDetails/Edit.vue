@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label for="s_no" class="block text-sm font-semibold leading-6 text-gray-900">s_no:</label>
+    <label for="s_no" class="block text-sm font-semibold leading-6 text-gray-900">S_No.</label>
     <div class="mt-2.5">
       <input
         type="number"
@@ -13,7 +13,7 @@
     </div>
   </div>
   <div>
-    <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">name:</label>
+    <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
     <div class="mt-2.5">
       <input
         name="name"
@@ -25,7 +25,7 @@
     </div>
   </div>
   <div>
-    <label for="age" class="block text-sm font-semibold leading-6 text-gray-900">age:</label>
+    <label for="age" class="block text-sm font-semibold leading-6 text-gray-900">Age</label>
     <div class="mt-2.5">
       <input
         type="number"
@@ -39,17 +39,16 @@
   </div>
 
   <div>
-    <label for="gender" class="block text-sm font-semibold leading-6 text-gray-900">gender:</label>
+    <label for="gender" class="block text-sm font-semibold leading-6 text-gray-900">Gender</label>
     <div class="mt-2.5">
       <select v-model="project.gender" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        <option>male</option>
-        <option>female</option>
-        <option>others</option>
+        <option>Male</option>
+        <option>Female</option>
       </select>
     </div>
   </div>
   <div>
-    <label for="date_of_birth" class="block text-sm font-semibold leading-6 text-gray-900">date_of_birth:</label>
+    <label for="date_of_birth" class="block text-sm font-semibold leading-6 text-gray-900">Date Of Birth</label>
     <div class="mt-2.5">
       <input
         type="date"
