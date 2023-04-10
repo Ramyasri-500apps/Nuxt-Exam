@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody class="divide-y divide-gray-800">
-      <tr v-for="(row, index) in project" :key="`item-${index}`" class="cursor-pointer hover:bg-gray-200">
+      <tr v-for="(row, index) in student" :key="`item-${index}`" class="cursor-pointer hover:bg-gray-200">
         <td v-for="(field, index) in fields" :key="`row-${index}`" class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-0">
           {{ row[field] }}
         </td>
@@ -33,9 +33,9 @@
               <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900"> {{ edit ? "Edit" : "Delete" }} Student </DialogTitle>
 
               <div v-if="edit">
-                <StudentDetailsEdit :project="editProject" @edit="(openModal = false), (edit = false), emit('emitData', { note: $event, value: 'edit', index: editIndex })" @cancel="closeModal" />
+                <StudentDetailsEdit :student="editStudent" @edit="(openModal = false), (edit = false), emit('emitData', { note: $event, value: 'edit', index: editIndex })" @cancel="closeModal" />
               </div>
-              <div v-if="deleteProject">
+              <div v-if="deleteStudent">
                 <p class="mt-3">Do you want to delete?</p>
                 <div class="mt-10 flex">
                   <button
@@ -68,29 +68,29 @@
   const fields = ref(["s_no", "name", "age", "gender", "date_of_birth", "class"]);
   const emit = defineEmits(["emitData"]);
   const props = defineProps({
-    project: { type: Array, required: true },
+    student: { type: Array, required: true },
   });
-  const editProject = ref({});
+  const editStudent = ref({});
   const editIndex = ref(-1);
   const edit = ref(false);
 
-  const deleteProject = ref(false);
+  const deleteStudent = ref(false);
 
   const openModal = ref(false);
 
   const emitData = (note: any, index: any, value: any) => {
     openModal.value = true;
     editIndex.value = index;
-    editProject.value = JSON.parse(JSON.stringify(note));
+    editStudent.value = JSON.parse(JSON.stringify(note));
     if (value == "edit") {
       edit.value = true;
     } else {
-      deleteProject.value = true;
+      deleteStudent.value = true;
     }
   };
   const closeModal = () => {
     openModal.value = false;
     edit.value = false;
-    deleteProject.value = false;
+    deleteStudent.value = false;
   };
 </script>

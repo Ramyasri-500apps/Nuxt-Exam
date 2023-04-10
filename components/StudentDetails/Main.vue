@@ -3,7 +3,24 @@
     <h1 class="text-base font-semibold leading-6 text-gray-900">Students</h1>
     <p class="mt-2 text-sm text-gray-700">A list of all the Builders in your account including their name, email.</p>
   </div>
+
   <div class="flex ml-3 justify-end">
+    <div class="flex ml-3">
+      <div class="relative w-[400px]">
+        <div class="absolute inset-y-0 right-0 flex items-center pl-3 pointer-events-none">
+          <MagnifyingGlassIcon class="w-5 m-2" />
+        </div>
+        <input
+          v-model="searchQuery"
+          type="text"
+          id="simple-search"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-5"
+          placeholder="Search name"
+          required
+          @input="getSearchByName"
+        />
+      </div>
+    </div>
     <div class="ml-10 flex">
       <button type="button" class="rounded-full bg-indigo-600 p-4 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2.5" @click="openModal">
         Add Student
@@ -12,7 +29,7 @@
   </div>
 
   <div class="block w-full p-4 bg-white border border-gray-200 rounded-lg shadow bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:bg-gray-700 mt-2">
-    <StudentDetailsList v-if="projects && projects.length" :project="projects" @emitData="emitData" />
+    <StudentDetailsList v-if="student && student.length" :student="student" @emitData="emitData" />
   </div>
 
   <TransitionRoot appear :show="isOpen" as="template">
@@ -49,31 +66,42 @@
     isOpen.value = true;
   }
 
-  const projects: any = ref([]);
+  const student: any = ref([]);
 
   onMounted(() => {
-    if (localStorage.getItem("projectDetails")) projects.value = JSON.parse(localStorage.getItem("projectDetails"));
+    if (localStorage.getItem("studentDetails")) student.value = JSON.parse(localStorage.getItem("studentDetails"));
   });
 
   const add = async (project: any) => {
-    projects.value.push(project);
-    localStorage.setItem("projectDetails", JSON.stringify(projects.value));
+    student.value.push(project);
+    localStorage.setItem("studentDetails", JSON.stringify(student.value));
 
     isOpen.value = false;
   };
-  // Edit project
+  // Edit student
   const edit = async (note: any) => {
-    projects.value[note.index] = note.note;
-    localStorage.setItem("projectDetails", JSON.stringify(projects.value));
+    student.value[note.index] = note.note;
+    localStorage.setItem("studentDetails", JSON.stringify(student.value));
   };
-  // Delete Projects
+  // Delete student
   const deleteNote = async (note: any) => {
-    projects.value.splice(note.index, 1);
-    localStorage.setItem("projectDetails", JSON.stringify(projects.value));
+    student.value.splice(note.index, 1);
+    localStorage.setItem("studentDetails", JSON.stringify(student.value));
   };
 
   // Edit and Delete events
   const emitData = (note: Object) => {
     note.value == "edit" ? edit(note) : deleteNote(note);
+  };
+  const searchQuery = ref();
+  const getSearchByName = () => {
+    if (searchQuery.value) {
+      student.value = student.value.filter((item: any) => {
+        return item.name.toLowerCase().includes(searchQuery.value.toLowerCase());
+      });
+    } else {
+      // If search query is empty, show all employees
+      student.value = JSON.parse(localStorage.getItem("studentDetails"));
+    }
   };
 </script>
