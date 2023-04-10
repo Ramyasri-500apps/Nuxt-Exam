@@ -59,12 +59,12 @@
 
   const isOpen = ref(false);
 
-  function closeModal() {
+  const closeModal = () => {
     isOpen.value = false;
-  }
-  function openModal() {
+  };
+  const openModal = () => {
     isOpen.value = true;
-  }
+  };
 
   const student: any = ref([]);
 
